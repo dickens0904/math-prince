@@ -1,0 +1,81 @@
+{
+  "name": "math-prince",
+  "private": true,
+  "version": "1.0.0",
+  "description": "数学小王子 - 二年级到五年级数学练习软件",
+  "main": "src/main/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "preview": "vite preview",
+    "electron:dev": "concurrently \"vite\" \"electron .\"",
+    "electron:build": "vite build && electron-builder",
+    "start": "electron .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "framer-motion": "^12.42.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.22.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "7zip-min": "^3.0.1",
+    "concurrently": "^9.2.3",
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^9.39.4",
+    "husky": "^9.1.7",
+    "jest": "^30.4.2",
+    "lint-staged": "^17.0.8",
+    "oxlint": "^1.69.0",
+    "prettier": "^3.9.3",
+    "vite": "^8.1.0"
+  },
+  "build": {
+    "appId": "com.mathprince.app",
+    "productName": "数学小王子",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "src/main/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "public/favicon.svg"
+    },
+    "portable": {
+      "artifactName": "数学小王子-${version}-便携版.exe"
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    }
+  }
+}

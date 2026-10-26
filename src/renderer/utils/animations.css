@@ -1,0 +1,321 @@
+/* ==================== 全局动画效果 ==================== */
+
+/* 答对了 - 庆祝抖动 */
+@keyframes celebrateBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  50% {
+    transform: scale(1.12) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(-1deg);
+  }
+}
+.celebrate-bounce {
+  animation: celebrateBounce 0.5s ease-in-out;
+}
+
+/* 答错了 - 错误抖动 */
+@keyframes wrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  50%,
+  90% {
+    transform: translateX(-6px);
+  }
+  30%,
+  70% {
+    transform: translateX(6px);
+  }
+}
+.wrong-shake {
+  animation: wrongShake 0.4s ease-in-out;
+}
+
+/* 烟花粒子 */
+@keyframes fireworkParticle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(0);
+  }
+}
+.firework-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.firework-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: fireworkParticle 1s ease-out forwards;
+}
+
+/* 星星爆裂 */
+@keyframes starBurst {
+  0% {
+    opacity: 1;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+  }
+}
+.star-burst {
+  position: absolute;
+  font-size: 24px;
+  animation: starBurst 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* 从下往上飞出的文字 */
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.3);
+  }
+}
+.float-up-text {
+  position: fixed;
+  font-size: 28px;
+  font-weight: bold;
+  animation: floatUp 1.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9998;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 脉冲光圈 */
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  position: absolute;
+  border: 3px solid;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: pulseRing 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+/* 连击数字弹出 */
+@keyframes comboPopIn {
+  0% {
+    transform: scale(0) rotate(-30deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.3) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes comboPopOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5) translateY(-40px);
+    opacity: 0;
+  }
+}
+.combo-display {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: 900;
+  z-index: 9997;
+  pointer-events: none;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.combo-display.entering {
+  animation: comboPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.combo-display.leaving {
+  animation: comboPopOut 0.5s ease-in forwards;
+}
+
+/* 彩虹文字 */
+@keyframes rainbowText {
+  0% {
+    color: #ff6b6b;
+  }
+  16% {
+    color: #ffa07a;
+  }
+  33% {
+    color: #ffd700;
+  }
+  50% {
+    color: #98fb98;
+  }
+  66% {
+    color: #87ceeb;
+  }
+  83% {
+    color: #dda0dd;
+  }
+  100% {
+    color: #ff6b6b;
+  }
+}
+.rainbow-text {
+  animation: rainbowText 2s linear infinite;
+}
+
+/* 弹跳进入 */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 滑入 */
+@keyframes slideInUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.slide-in-up {
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+/* 闪烁 */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+.shimmer-gold {
+  background: linear-gradient(90deg, #ffd700, #fff8dc, #ffd700, #fff8dc, #ffd700);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear infinite;
+}
+
+/* 进度条动画 */
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+}
+.animate-progress {
+  animation: progressFill 1s ease-out;
+}
+
+/* 呼吸灯效果 */
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+}
+.breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* 翻转卡片 */
+@keyframes flipIn {
+  0% {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotateY(-10deg);
+  }
+  70% {
+    transform: perspective(400px) rotateY(5deg);
+  }
+  100% {
+    transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+.flip-in {
+  animation: flipIn 0.6s ease-out;
+}
+
+/* 皇冠弹出 */
+@keyframes crownPop {
+  0% {
+    transform: translateY(20px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.3);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.crown-pop {
+  animation: crownPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

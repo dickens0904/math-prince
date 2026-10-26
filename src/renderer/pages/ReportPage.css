@@ -1,0 +1,280 @@
+.report-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+  padding-top: 36px;
+}
+
+.report-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.report-header {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.report-header .back-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.report-header .back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.report-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.period-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.period-btn {
+  flex: 1;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.period-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.period-btn.selected {
+  background: white;
+  color: #9c27b0;
+}
+
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 24px 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .stat-number {
+  font-size: 36px;
+  font-weight: 800;
+  color: #333;
+}
+
+.stat-card.main .stat-number {
+  color: #9c27b0;
+}
+
+.stat-card.correct .stat-number {
+  color: #4caf50;
+}
+
+.stat-card.accuracy .stat-number {
+  color: #ff9800;
+}
+
+.stat-card .stat-label {
+  font-size: 14px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.stats-detail {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.detail-icon {
+  font-size: 32px;
+}
+
+.detail-info {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.chart-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 20px;
+}
+
+/* Accuracy Chart */
+.accuracy-chart {
+  text-align: center;
+}
+
+.chart-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-bar {
+  flex: 1;
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chart-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9c27b0, #e040fb);
+  border-radius: 12px;
+  transition: width 0.5s ease;
+}
+
+.chart-label {
+  font-size: 24px;
+  font-weight: 800;
+  color: #9c27b0;
+  min-width: 60px;
+}
+
+.chart-description {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Type Stats */
+.type-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.type-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.type-name {
+  width: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  text-align: right;
+}
+
+.type-bar {
+  flex: 1;
+  height: 16px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.type-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9c27b0, #e040fb);
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.type-accuracy {
+  width: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  text-align: right;
+}
+
+.type-count {
+  width: 40px;
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+}
+
+/* Suggestions */
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.suggestion-icon {
+  font-size: 24px;
+}
+
+.suggestion-text {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
