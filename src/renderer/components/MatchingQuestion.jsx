@@ -14,14 +14,25 @@ export default function MatchingQuestion({ question, onAnswer }) {
 
   useEffect(() => {
     drawLines();
-  }, [matches]);
+    const handleResize = () => drawLines();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [matches, submitted]);
 
   const drawLines = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const canvasRect = canvas.getBoundingClientRect();
+
+    // 同步 canvas 逻辑坐标系与 CSS 显示尺寸（含高 DPI），避免画线错位
+    if (canvasRect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(canvasRect.width * dpr);
+    canvas.height = Math.round(canvasRect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
 
     Object.entries(matches).forEach(([leftId, rightId]) => {
       const leftEl = leftRefs.current[leftId];
@@ -143,8 +154,6 @@ export default function MatchingQuestion({ question, onAnswer }) {
         <canvas
           ref={canvasRef}
           className="matching-canvas"
-          width={200}
-          height={Math.max(leftItems.length, rightItems.length) * 60 + 40}
         />
 
         <div className="matching-right">

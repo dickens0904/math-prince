@@ -67,6 +67,9 @@
       "src/main/**/*",
       "package.json"
     ],
+    "asarUnpack": [
+      "**/node_modules/better-sqlite3/**"
+    ],
     "win": {
       "target": "portable",
       "icon": "public/favicon.svg"
