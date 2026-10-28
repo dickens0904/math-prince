@@ -31,6 +31,7 @@ export default function HomePage({ user, onNavigate }) {
   const levelInfo = getLevelInfo(user.exp || 0);
 
   const menuItems = [
+    { id: 'olympiad', icon: '🧮', title: '奥数班', desc: '动画学奥数，不分年级', color: '#FF6B6B' },
     { id: 'practice', icon: '📝', title: '日常练习', desc: '每日推荐练习题', color: '#4CAF50' },
     { id: 'challenge', icon: '⏱️', title: '计时挑战', desc: '限时计算训练', color: '#FF9800' },
     { id: 'topic', icon: '📚', title: '专项突破', desc: '按知识点练习', color: '#2196F3' },

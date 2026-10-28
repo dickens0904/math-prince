@@ -5,6 +5,8 @@ import LogPanel from './renderer/components/LogPanel';
 import logger from './renderer/utils/logger';
 import WelcomePage from './renderer/pages/WelcomePage';
 import HomePage from './renderer/pages/HomePage';
+import TopicsPage from './renderer/pages/TopicsPage';
+import LessonPage from './renderer/pages/LessonPage';
 import PracticePage from './renderer/pages/PracticePage';
 import ChallengePage from './renderer/pages/ChallengePage';
 import TopicPage from './renderer/pages/TopicPage';
@@ -41,6 +43,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [topicQuestions, setTopicQuestions] = useState(null);
   const [topicName, setTopicName] = useState('');
+  const [olympiadTopic, setOlympiadTopic] = useState(null);
 
   useEffect(() => {
     logger.info('App', '应用启动');
@@ -231,6 +234,60 @@ export default function App() {
     setTopicName('');
   };
 
+  // 奥数班：进入主题选择页
+  const handleNavigateOlympiad = () => {
+    logger.info('App', '进入奥数班');
+    setOlympiadTopic(null);
+    setPage('olympiad');
+  };
+
+  // 奥数班：选择主题
+  const handleSelectOlympiadTopic = (topicId) => {
+    logger.info('App', `选择奥数主题: ${topicId}`);
+    setOlympiadTopic(topicId);
+    setPage('olympiad-lesson');
+  };
+
+  // 奥数班：课程完成
+  const handleOlympiadLessonComplete = (results, wrongQuestions) => {
+    const correctCount = results.filter(r => r.correct).length;
+    const accuracy = Math.round((correctCount / results.length) * 100);
+    const expGain = correctCount * 12;
+    logger.info('App', `奥数课完成: ${correctCount}/${results.length} 正确率${accuracy}%`, {
+      topic: olympiadTopic,
+      expGain,
+    });
+
+    // 保存练习记录
+    savePracticeRecord(user.id, {
+      total: results.length,
+      correct: correctCount,
+      time: 0,
+      details: results.map(r => ({
+        content: r.question?.content || '',
+        type: r.question?.type || '奥数',
+        userAnswer: r.userAnswer || '',
+        correctAnswer: r.question?.answer || '',
+        isCorrect: r.correct,
+      })),
+    });
+
+    // 添加错题
+    wrongQuestions.forEach(r => {
+      addWrongQuestionToStorage(user.id, {
+        content: r.question.content,
+        type: r.question.type,
+        answer: r.question.answer,
+      });
+    });
+
+    // 更新用户经验
+    const updated = localDB.updateUser({
+      exp: (user.exp || 0) + expGain,
+    });
+    setUser(updated);
+  };
+
   if (loading) {
     return (
       <div className="app-loading">
@@ -248,6 +305,18 @@ export default function App() {
       {page === 'welcome' && <WelcomePage onStart={handleStart} />}
 
       {page === 'home' && user && <HomePage user={user} onNavigate={handleNavigate} />}
+
+      {page === 'olympiad' && user && (
+        <TopicsPage onSelectTopic={handleSelectOlympiadTopic} onBack={handleBackToHome} />
+      )}
+
+      {page === 'olympiad-lesson' && user && olympiadTopic && (
+        <LessonPage
+          topicId={olympiadTopic}
+          onBack={handleBackToHome}
+          onComplete={handleOlympiadLessonComplete}
+        />
+      )}
 
       {page === 'practice' && user && (
         <PracticePage user={user} onBack={handleBackToHome} onFinish={handlePracticeFinish} />

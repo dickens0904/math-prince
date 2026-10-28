@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './WelcomePage.css';
 import { characters } from '../utils/encouragement';
+import { speak } from '../utils/speech';
 
 const avatars = [
   { id: 'prince', emoji: '👑', label: '小王子' },
@@ -112,30 +113,24 @@ export default function WelcomePage({ onStart }) {
           <div className="welcome-step step-2">
             <div className="form-group">
               <label className="form-label">选择学习伙伴 🎒</label>
-              <div
-                className="avatar-grid"
-                style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}
-              >
+              <div className="avatar-grid character-grid">
                 {characters.map(char => (
                   <button
                     key={char.id}
-                    className={`avatar-btn ${selectedCharacter?.id === char.id ? 'selected' : ''}`}
-                    onClick={() => setSelectedCharacter(char)}
+                    className={`avatar-btn character-card ${selectedCharacter?.id === char.id ? 'selected' : ''}`}
+                    onClick={async () => {
+                      setSelectedCharacter(char);
+                      await speak(char.greeting);
+                    }}
                     style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      padding: '16px 8px',
-                      gap: '6px',
                       borderColor: selectedCharacter?.id === char.id ? char.color : undefined,
                       background: selectedCharacter?.id === char.id ? `${char.color}15` : undefined,
                     }}
+                    title={`${char.name} · ${char.personality}`}
                   >
-                    <span style={{ fontSize: '36px' }}>{char.emoji}</span>
-                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#333' }}>
-                      {char.name}
-                    </span>
-                    <span style={{ fontSize: '11px', color: '#888' }}>{char.personality}</span>
+                    <span className="character-emoji">{char.emoji}</span>
+                    <span className="character-name">{char.name}</span>
+                    <span className="character-personality">{char.personality}</span>
                   </button>
                 ))}
               </div>
@@ -143,21 +138,18 @@ export default function WelcomePage({ onStart }) {
 
             {selectedCharacter && (
               <div
+                className="character-greeting"
                 style={{
-                  padding: '12px 16px',
-                  margin: '12px 0',
-                  borderRadius: '12px',
                   background: `${selectedCharacter.color}10`,
                   border: `1px solid ${selectedCharacter.color}25`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
                 }}
+                onClick={async () => {
+                  await speak(selectedCharacter.greeting);
+                }}
+                title="点击播放伙伴讲解"
               >
-                <span style={{ fontSize: '28px' }}>{selectedCharacter.emoji}</span>
-                <span style={{ fontSize: '14px', color: '#555' }}>
-                  {selectedCharacter.greeting}
-                </span>
+                <span className="character-greeting-emoji">{selectedCharacter.emoji}</span>
+                <span className="character-greeting-text">{selectedCharacter.greeting}</span>
               </div>
             )}
 

@@ -22,6 +22,7 @@
   color: rgba(255, 255, 255, 0.08);
   font-weight: bold;
   animation: float 8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .shape-1 {
@@ -68,12 +69,15 @@
 .welcome-container {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 24px;
   padding: 48px;
   width: 480px;
   max-width: 90vw;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .welcome-header {
@@ -85,6 +89,7 @@
   font-size: 56px;
   margin-bottom: 8px;
   animation: bounce 2s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes bounce {
@@ -117,12 +122,14 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
 }
 
 .form-label {
@@ -155,6 +162,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 .avatar-btn {
@@ -168,11 +177,102 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* 学习伙伴选择网格 - 全面碰撞检测 */
+.character-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.character-card {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 88px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-align: center;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.character-emoji {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.character-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.character-personality {
+  font-size: 10px;
+  color: #888;
+  line-height: 1.2;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.character-greeting {
+  padding: 10px 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.character-greeting-emoji {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.character-greeting-text {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  flex: 1;
 }
 
 .avatar-btn:hover {
   border-color: #667eea;
   transform: scale(1.08);
+  z-index: 2;
 }
 
 .avatar-btn.selected {
