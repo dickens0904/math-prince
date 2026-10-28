@@ -1979,3 +1979,111 @@ export function genLineChartChange() {
     difficulty: 2,
   };
 }
+
+// ============ 找规律填数 ============
+
+// 找规律填数（两层规律：交替加减或乘加混合）
+export function genNumberPattern() {
+  const r = randInt(1, 3);
+  const shownCount = 5;
+  const seq = [];
+  if (r === 1) {
+    // 交替加：+d1、+d2 循环
+    const d1 = randInt(2, 30);
+    const d2 = randInt(2, 30);
+    if (d1 === d2) return genNumberPattern();
+    let cur = randInt(1, 200);
+    for (let i = 0; i < shownCount; i++) {
+      seq.push(cur);
+      cur += i % 2 === 0 ? d1 : d2;
+    }
+    return {
+      content: `找规律填数：${seq.join('、')}、（ ）`,
+      answer: String(cur),
+      type: '找规律填数',
+      difficulty: 2,
+    };
+  }
+  if (r === 2) {
+    // 交替加减：+d1、-d2 循环
+    const d1 = randInt(3, 30);
+    const d2 = randInt(1, d1 - 1);
+    let cur = randInt(2, 100);
+    for (let i = 0; i < shownCount; i++) {
+      seq.push(cur);
+      cur += i % 2 === 0 ? d1 : -d2;
+    }
+    return {
+      content: `找规律填数：${seq.join('、')}、（ ）`,
+      answer: String(cur),
+      type: '找规律填数',
+      difficulty: 2,
+    };
+  }
+  // 乘加混合：每次 ×m + c
+  const m = randInt(2, 3);
+  const c = randInt(1, 5);
+  let cur = randInt(1, 4);
+  for (let i = 0; i < shownCount; i++) {
+    seq.push(cur);
+    cur = cur * m + c;
+  }
+  return {
+    content: `找规律填数：${seq.join('、')}、（ ）`,
+    answer: String(cur),
+    type: '找规律填数',
+    difficulty: 3,
+  };
+}
+
+// ============ 比较大小 ============
+
+// 比较大小（两步混合运算）
+export function genCompareCalc() {
+  const r = randInt(1, 3);
+  if (r === 1) {
+    // 乘加与乘减比大小
+    const a = randInt(11, 40);
+    const b = randInt(2, 9);
+    const c = randInt(11, 99);
+    const d = randInt(11, 40);
+    const e = randInt(2, 9);
+    const f = randInt(1, d * e);
+    const left = a * b + c;
+    const right = d * e - f;
+    return {
+      content: `${a}×${b}+${c} ○ ${d}×${e}-${f}（填 >、< 或 =）`,
+      answer: left > right ? '>' : left < right ? '<' : '=',
+      type: '比较大小',
+      difficulty: 2,
+    };
+  }
+  if (r === 2) {
+    // 含括号的除法算式与数比大小
+    const c = randInt(2, 9);
+    const q = randInt(2, 25);
+    const sum = c * q;
+    const a = randInt(2, sum - 2);
+    const b = sum - a;
+    const num = randInt(1, 40);
+    return {
+      content: `(${a} + ${b}) ÷ ${c} ○ ${num}（填 >、< 或 =）`,
+      answer: q > num ? '>' : q < num ? '<' : '=',
+      type: '比较大小',
+      difficulty: 2,
+    };
+  }
+  // 同乘数不同加数比大小
+  const a = randInt(12, 30);
+  const b = randInt(3, 9);
+  const c = randInt(1, 50);
+  const d = randInt(1, 50);
+  const left = a * b + c;
+  const right = a * b + d;
+  return {
+    content: `${a}×${b}+${c} ○ ${a}×${b}+${d}（填 >、< 或 =）`,
+    answer: left > right ? '>' : left < right ? '<' : '=',
+    type: '比较大小',
+    difficulty: 2,
+  };
+}

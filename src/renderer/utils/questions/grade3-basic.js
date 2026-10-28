@@ -1626,3 +1626,116 @@ export function genStatMixed() {
     difficulty: 2,
   };
 }
+
+// ============ 找规律填数 ============
+
+// 找规律填数（等差步长为2/5/10及其倍数，或×2、÷2倍数规律）
+export function genNumberPattern() {
+  const r = randInt(1, 2);
+  const shownCount = 5;
+  const seq = [];
+  if (r === 1) {
+    // 等差数列：步长为2、5、10或其倍数
+    const step = pick([2, 5, 10, 20, 25, 50, 100]);
+    if (randInt(1, 2) === 1) {
+      const start = randInt(1, 999 - step * shownCount);
+      for (let i = 0; i < shownCount; i++) seq.push(start + i * step);
+      return {
+        content: `找规律填数：${seq.join('、')}、（ ）`,
+        answer: String(seq[shownCount - 1] + step),
+        type: '找规律填数',
+        difficulty: 1,
+      };
+    }
+    const start = randInt(step * (shownCount + 1) + 1, step * (shownCount + 1) + 300);
+    for (let i = 0; i < shownCount; i++) seq.push(start - i * step);
+    return {
+      content: `找规律填数：${seq.join('、')}、（ ）`,
+      answer: String(seq[shownCount - 1] - step),
+      type: '找规律填数',
+      difficulty: 1,
+    };
+  }
+  // 倍数规律：×2 或 ÷2
+  if (randInt(1, 2) === 1) {
+    let cur = randInt(1, 30);
+    for (let i = 0; i < shownCount; i++) {
+      seq.push(cur);
+      cur *= 2;
+    }
+    return {
+      content: `找规律填数：${seq.join('、')}、（ ）`,
+      answer: String(cur),
+      type: '找规律填数',
+      difficulty: 2,
+    };
+  }
+  let cur = 32 * randInt(1, 30);
+  for (let i = 0; i < shownCount; i++) {
+    seq.push(cur);
+    cur /= 2;
+  }
+  return {
+    content: `找规律填数：${seq.join('、')}、（ ）`,
+    answer: String(cur),
+    type: '找规律填数',
+    difficulty: 2,
+  };
+}
+
+// ============ 比较大小（含乘除） ============
+
+// 比较大小（含乘除的两步计算）
+export function genCompareCalc() {
+  const r = randInt(1, 3);
+  if (r === 1) {
+    // 乘减与乘加比大小
+    const a = randInt(2, 9);
+    const b = randInt(2, 9);
+    const c = randInt(1, a * b);
+    const d = randInt(2, 9);
+    const e = randInt(2, 9);
+    const f = randInt(1, 30);
+    const left = a * b - c;
+    const right = d * e + f;
+    return {
+      content: `${a}×${b}-${c} ○ ${d}×${e}+${f}（填 >、< 或 =）`,
+      answer: left > right ? '>' : left < right ? '<' : '=',
+      type: '比较大小',
+      difficulty: 2,
+    };
+  }
+  if (r === 2) {
+    // 除加与乘减比大小
+    const b = randInt(2, 9);
+    const q = randInt(2, 9);
+    const a = b * q;
+    const c = randInt(2, 20);
+    const d = randInt(2, 9);
+    const e = randInt(2, 9);
+    const f = randInt(1, d * e);
+    const left = q + c;
+    const right = d * e - f;
+    return {
+      content: `${a}÷${b}+${c} ○ ${d}×${e}-${f}（填 >、< 或 =）`,
+      answer: left > right ? '>' : left < right ? '<' : '=',
+      type: '比较大小',
+      difficulty: 2,
+    };
+  }
+  // 除加与乘法算式比大小
+  const b = randInt(2, 9);
+  const q = randInt(2, 9);
+  const a = b * q;
+  const c = randInt(2, 20);
+  const d = randInt(2, 9);
+  const e = randInt(2, 9);
+  const left = q + c;
+  const right = d * e;
+  return {
+    content: `${a}÷${b}+${c} ○ ${d}×${e}（填 >、< 或 =）`,
+    answer: left > right ? '>' : left < right ? '<' : '=',
+    type: '比较大小',
+    difficulty: 2,
+  };
+}

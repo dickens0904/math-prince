@@ -497,3 +497,79 @@ export function genMulDivChain() {
   const a = b * c * 2;
   return { content: `${a} ÷ ${b} ÷ ${c} = ?`, answer: String(2), type: '连除', difficulty: 1 };
 }
+
+// ============ 找规律填数 ============
+
+// 找规律填数（等差数列，步长1-5，可升可降）
+export function genNumberPattern() {
+  const step = randInt(1, 5);
+  const shownCount = randInt(4, 5);
+  const seq = [];
+  if (randInt(1, 2) === 1) {
+    const start = randInt(1, 20);
+    for (let i = 0; i < shownCount; i++) seq.push(start + i * step);
+    return {
+      content: `找规律填数：${seq.join('、')}、（ ）`,
+      answer: String(seq[shownCount - 1] + step),
+      type: '找规律填数',
+      difficulty: 1,
+    };
+  }
+  const start = randInt(step * shownCount + 2, step * shownCount + 30);
+  for (let i = 0; i < shownCount; i++) seq.push(start - i * step);
+  return {
+    content: `找规律填数：${seq.join('、')}、（ ）`,
+    answer: String(seq[shownCount - 1] - step),
+    type: '找规律填数',
+    difficulty: 1,
+  };
+}
+
+// ============ 比较大小 ============
+
+// 比较大小（100以内加减算式与数、算式与算式）
+export function genCompareCalc() {
+  const r = randInt(1, 3);
+  if (r === 1) {
+    // 算式与数比大小
+    const a = randInt(10, 60);
+    const b = randInt(10, 39);
+    const num = randInt(20, 99);
+    const left = a + b;
+    return {
+      content: `${a} + ${b} ○ ${num}（填 >、< 或 =）`,
+      answer: left > num ? '>' : left < num ? '<' : '=',
+      type: '比较大小',
+      difficulty: 1,
+    };
+  }
+  if (r === 2) {
+    // 加减混合算式与减法算式比大小
+    const a = randInt(30, 80);
+    const b = randInt(10, a - 5);
+    const c = randInt(5, 20);
+    const d = randInt(20, 70);
+    const e = randInt(5, d - 5);
+    const left = a - b + c;
+    const right = d - e;
+    return {
+      content: `${a} - ${b} + ${c} ○ ${d} - ${e}（填 >、< 或 =）`,
+      answer: left > right ? '>' : left < right ? '<' : '=',
+      type: '比较大小',
+      difficulty: 1,
+    };
+  }
+  // 减法算式与加法算式比大小
+  const a = randInt(40, 99);
+  const b = randInt(10, 30);
+  const c = randInt(10, 30);
+  const d = randInt(10, 30);
+  const left = a - b;
+  const right = c + d;
+  return {
+    content: `${a} - ${b} ○ ${c} + ${d}（填 >、< 或 =）`,
+    answer: left > right ? '>' : left < right ? '<' : '=',
+    type: '比较大小',
+    difficulty: 1,
+  };
+}

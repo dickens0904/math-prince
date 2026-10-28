@@ -31,6 +31,8 @@ import {
   genSymmetry,
   genTriangleQuad,
   genMulDivChain,
+  genNumberPattern,
+  genCompareCalc,
 } from './grade2-basic';
 
 import {
@@ -75,6 +77,8 @@ export const chapters = [
       genAddSubMixed,
       genBoxEquation,
       genCompareAddSub,
+      genCompareCalc,
+      genNumberPattern,
     ],
     appGenerators: [genAppCh1, genShoppingApp, genLifeApp, () => getThinkingQuestion(2, 0)],
   },

@@ -93,6 +93,8 @@ import {
   genLineChartTrend,
   genLineChartAverage,
   genLineChartChange,
+  genNumberPattern,
+  genCompareCalc,
 } from './grade4-basic';
 
 // ============ 导入应用题生成器 ============
@@ -161,6 +163,8 @@ export const chapters = [
       genAssociativeProperty,
       genDistributiveProperty,
       genQuickCalc,
+      genCompareCalc,
+      genNumberPattern,
     ],
     appGenerators: [genAppCh2, () => getThinkingQuestion(4, 1)],
   },

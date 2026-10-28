@@ -85,6 +85,9 @@ import {
   genBarChart,
   genStatFill,
   genStatMixed,
+  // 找规律填数与比较大小
+  genNumberPattern,
+  genCompareCalc,
 } from './grade3-basic';
 
 import {
@@ -118,6 +121,7 @@ export const chapters = [
       genTwoStepBox,
       genCompareMixed,
       genJudgeArithmetic,
+      genCompareCalc,
     ],
     appGenerators: [genAppCh1, () => getThinkingQuestion(3, 0)],
   },
@@ -194,6 +198,7 @@ export const chapters = [
       genThreeEstimate,
       genThreeFillBlank,
       genThreeCompare,
+      genNumberPattern,
     ],
     appGenerators: [genAppCh6, () => getThinkingQuestion(3, 5)],
   },
